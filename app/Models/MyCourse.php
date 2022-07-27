@@ -14,6 +14,7 @@ class MyCourse extends Model
         'updated_at' => 'datetime:Y-m-d H:m:s',
     ];
 
+
     protected $fillable = [
         'course_id', 'user_id'
     ];
