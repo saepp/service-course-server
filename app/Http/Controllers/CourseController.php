@@ -44,6 +44,15 @@ class CourseController extends Controller
         }
 
         $reviews = Review::where('course_id', '=', $id)->get()->toArray();
+        if (count($reviews) > 0) {
+            $userIds = array_column($reviews, 'user_id');
+            $users = getUserByIds($userIds);
+            echo "<pre>" . print_r($users, 1) . "</pre>";
+            // if ($users['status'] === 'error') {
+            //     $reviews = [];
+            // }
+        }
+
         $totalStudent = MyCourse::where('course_id', '=', $id)->count();
 
         $course['reviews'] = $reviews;
