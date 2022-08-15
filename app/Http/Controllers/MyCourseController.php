@@ -70,8 +70,23 @@ class MyCourseController extends Controller
         }
 
         if ($course->type === 'premium') {
-        } else {
+            $order = postOrder([
+                'user' => $user['data'],
+                'course' => $course->toArray()
+            ]);
 
+            if ($order['status'] === 'error') {
+                return response()->json([
+                    'status' => $order['status'],
+                    'message' => $order['message']
+                ], $order['http_code']);
+            }
+
+            return response()->json([
+                'status' => $order['status'],
+                'data' => $order['data']
+            ]);
+        } else {
             $myCourse = MyCourse::create($data);
 
             return response()->json([
