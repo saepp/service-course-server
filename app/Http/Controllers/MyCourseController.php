@@ -69,12 +69,16 @@ class MyCourseController extends Controller
             ], 409);
         }
 
-        $myCourse = MyCourse::create($data);
+        if ($course->type === 'premium') {
+        } else {
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $myCourse
-        ]);
+            $myCourse = MyCourse::create($data);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $myCourse
+            ]);
+        }
     }
 
     public function createPremiumAccess(Request $request)
